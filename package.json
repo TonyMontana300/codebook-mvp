@@ -1,0 +1,32 @@
+{
+  "name": "codebook-backend",
+  "version": "1.0.0",
+  "description": "backend for codebook",
+  "license": "ISC",
+  "author": "Ayush Barman",
+  "type": "module",
+  "main": "src/server.js",
+  "scripts": {
+    "dev": "concurrently -n server,css -c green,cyan \"nodemon src/server.js\" \"npm run dev:css\"",
+    "dev:css": "npx tailwindcss -i ./styles/input.css -o ./public/css/styles.css --watch",
+    "build:css": "npx tailwindcss -i ./styles/input.css -o ./public/css/styles.css --minify",
+    "start": "node src/server.js",
+    "build": "npm run build:css"
+  },
+  "dependencies": {
+    "@tailwindcss/cli": "^4.1.12",
+    "cors": "^2.8.5",
+    "dotenv": "^17.2.1",
+    "ejs": "^3.1.10",
+    "express": "^5.1.0",
+    "express-rate-limit": "^8.1.0",
+    "node-fetch": "^3.3.2"
+  },
+  "devDependencies": {
+    "autoprefixer": "^10.4.21",
+    "concurrently": "^9.2.0",
+    "nodemon": "^3.1.10",
+    "postcss": "^8.5.6",
+    "tailwindcss": "^4.1.12"
+  }
+}

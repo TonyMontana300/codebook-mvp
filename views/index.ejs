@@ -1,0 +1,574 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>CodeBook - Handwriting Code Compiler</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Kalam:wght@300;400;700&family=Caveat:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link href="/css/styles.css" rel="stylesheet" />
+  </head>
+  <body class="codebook-body min-h-screen flex flex-col items-center p-6">
+    <!-- Theme Toggle -->
+    <div class="theme-toggle" onclick="toggleTheme()">
+      <span class="theme-icon sun">☀️</span>
+      <div class="theme-switch"></div>
+      <span class="theme-icon moon">🌙</span>
+    </div>
+
+    <!-- Header -->
+    <header class="mb-8 text-center fade-in">
+      <h1 class="text-6xl font-bold text-green-800 drop-shadow-lg mb-2">
+        📖 CodeBook
+      </h1>
+      <p class="text-green-600 text-lg font-medium">
+        Write code like you write notes
+      </p>
+      <p class="text-green-500 text-sm mt-1">
+        Handwriting-powered web compiler
+      </p>
+    </header>
+
+    <!-- Language Selection -->
+    <section
+      aria-label="Select programming language"
+      class="language-logos fade-in mb-8"
+      role="radiogroup"
+    >
+      <div
+        class="lang"
+        data-lang="C"
+        data-ext=".c"
+        role="radio"
+        tabindex="0"
+        aria-checked="false"
+        aria-label="C"
+      >
+        <img
+          src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/c/c-original.svg"
+          alt="C"
+          loading="lazy"
+        />
+      </div>
+      <div
+        class="lang"
+        data-lang="C#"
+        data-ext=".cs"
+        role="radio"
+        tabindex="0"
+        aria-checked="false"
+        aria-label="C#"
+      >
+        <img
+          src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/csharp/csharp-original.svg"
+          alt="C#"
+          loading="lazy"
+        />
+      </div>
+      <div
+        class="lang"
+        data-lang="C++"
+        data-ext=".cpp"
+        role="radio"
+        tabindex="0"
+        aria-checked="false"
+        aria-label="C++"
+      >
+        <img
+          src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/cplusplus/cplusplus-original.svg"
+          alt="C++"
+          loading="lazy"
+        />
+      </div>
+      <div
+        class="lang"
+        data-lang="Go"
+        data-ext=".go"
+        role="radio"
+        tabindex="0"
+        aria-checked="false"
+        aria-label="Go"
+      >
+        <img
+          src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/go/go-original.svg"
+          alt="Go"
+          loading="lazy"
+        />
+      </div>
+      <div
+        class="lang"
+        data-lang="Java"
+        data-ext=".java"
+        role="radio"
+        tabindex="0"
+        aria-checked="false"
+        aria-label="Java"
+      >
+        <img
+          src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/java/java-original.svg"
+          alt="Java"
+          loading="lazy"
+        />
+      </div>
+      <div
+        class="lang selected"
+        data-lang="JavaScript"
+        data-ext=".js"
+        role="radio"
+        tabindex="0"
+        aria-checked="true"
+        aria-label="JavaScript"
+      >
+        <img
+          src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-original.svg"
+          alt="JavaScript"
+          loading="lazy"
+        />
+      </div>
+      <div
+        class="lang"
+        data-lang="Kotlin"
+        data-ext=".kt"
+        role="radio"
+        tabindex="0"
+        aria-checked="false"
+        aria-label="Kotlin"
+      >
+        <img
+          src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/kotlin/kotlin-original.svg"
+          alt="Kotlin"
+          loading="lazy"
+        />
+      </div>
+      <div
+        class="lang"
+        data-lang="PHP"
+        data-ext=".php"
+        role="radio"
+        tabindex="0"
+        aria-checked="false"
+        aria-label="PHP"
+      >
+        <img
+          src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/php/php-original.svg"
+          alt="PHP"
+          loading="lazy"
+        />
+      </div>
+      <div
+        class="lang"
+        data-lang="Python"
+        data-ext=".py"
+        role="radio"
+        tabindex="0"
+        aria-checked="false"
+        aria-label="Python"
+      >
+        <img
+          src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg"
+          alt="Python"
+          loading="lazy"
+        />
+      </div>
+      <div
+        class="lang"
+        data-lang="Ruby"
+        data-ext=".rb"
+        role="radio"
+        tabindex="0"
+        aria-checked="false"
+        aria-label="Ruby"
+      >
+        <img
+          src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/ruby/ruby-original.svg"
+          alt="Ruby"
+          loading="lazy"
+        />
+      </div>
+      <div
+        class="lang"
+        data-lang="Rust"
+        data-ext=".rs"
+        role="radio"
+        tabindex="0"
+        aria-checked="false"
+        aria-label="Rust"
+      >
+        <img
+          src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/rust/rust-original.svg"
+          alt="Rust"
+          loading="lazy"
+        />
+      </div>
+      <div
+        class="lang"
+        data-lang="Swift"
+        data-ext=".swift"
+        role="radio"
+        tabindex="0"
+        aria-checked="false"
+        aria-label="Swift"
+      >
+        <img
+          src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/swift/swift-original.svg"
+          alt="Swift"
+          loading="lazy"
+        />
+      </div>
+      <div
+        class="lang"
+        data-lang="TypeScript"
+        data-ext=".ts"
+        role="radio"
+        tabindex="0"
+        aria-checked="false"
+        aria-label="TypeScript"
+      >
+        <img
+          src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/typescript/typescript-original.svg"
+          alt="TypeScript"
+          loading="lazy"
+        />
+      </div>
+    </section>
+
+    <!-- Main Editor -->
+    <main
+      class="flex flex-col lg:flex-row gap-10 lg:gap-12 w-full max-w-none fade-in"
+      role="main"
+    >
+      <!-- Code Input Area -->
+      <section class="flex-1 relative">
+        <div class="code-area p-6 rounded-2xl shadow-xl">
+          <div class="flex items-center justify-between mb-4">
+            <h2
+              class="text-2xl font-semibold text-green-800 flex items-center gap-2"
+            >
+              ✍️ Write Code
+              <span
+                id="selected-lang"
+                class="text-lg text-green-600 font-normal"
+              >
+                (JavaScript)
+              </span>
+            </h2>
+            <div class="status-indicator ready" title="Ready to code"></div>
+          </div>
+
+          <!-- Mode Toggle -->
+          <div class="mb-4 flex gap-3">
+            <button
+              id="typing-mode-btn"
+              type="button"
+              class="px-4 py-2 bg-green-600 text-white rounded-lg font-medium transition-all"
+            >
+              ⌨️ Typing Mode
+            </button>
+            <button
+              id="handwriting-mode-btn"
+              type="button"
+              class="px-4 py-2 bg-gray-200 text-gray-700 rounded-lg font-medium transition-all"
+            >
+              ✍️ Handwriting Mode
+            </button>
+          </div>
+
+          <!-- Typing Mode -->
+          <div id="typing-container">
+            <label for="code-editor" class="sr-only"
+              >Write your code here</label
+            >
+            <textarea
+              id="code-editor"
+              placeholder="Write your JavaScript code here..."
+              class="handwriting-input w-full h-[500px] p-4 rounded-xl border-2 border-green-300 focus:outline-none focus:ring-4 focus:ring-green-200 focus:border-green-500 transition-all bg-white/80 backdrop-blur-sm resize-none"
+              spellcheck="false"
+              autocomplete="off"
+              autocorrect="off"
+              autocapitalize="off"
+            ></textarea>
+          </div>
+
+          <!-- Handwriting Mode -->
+          <div id="handwriting-container" class="hidden">
+            <!-- Drawing Tools -->
+            <div
+              class="mb-3 p-3 bg-gray-50 rounded-lg border flex items-center justify-between flex-wrap gap-3"
+            >
+              <div class="flex items-center gap-2">
+                <span class="text-sm font-medium text-gray-700"
+                  >Drawing Tools:</span
+                >
+
+                <button
+                  id="pen-tool"
+                  type="button"
+                  class="tool-btn active bg-green-100 text-white"
+                  title="Pen tool"
+                >
+                  🖊️ Pen
+                </button>
+
+                <button
+                  id="eraser-tool"
+                  type="button"
+                  class="tool-btn bg-red-100 text-red-700"
+                  title="Eraser tool"
+                >
+                  🧽 Eraser
+                </button>
+              </div>
+
+              <div class="flex items-center gap-3">
+                <div class="flex items-center gap-2">
+                  <label for="pen-size" class="text-sm text-gray-600"
+                    >Size:</label
+                  >
+                  <select
+                    id="pen-size"
+                    class="px-2 py-1 text-sm border rounded"
+                  >
+                    <option value="1">Thin</option>
+                    <option value="2" selected>Normal</option>
+                    <option value="4">Thick</option>
+                    <option value="6">Very Thick</option>
+                  </select>
+                </div>
+
+                <div class="flex items-center gap-2">
+                  <label for="pen-color" class="text-sm text-gray-600"
+                    >Color:</label
+                  >
+                  <input
+                    id="pen-color"
+                    type="color"
+                    value="#2563eb"
+                    class="w-8 h-6 border rounded cursor-pointer"
+                    title="Pen color"
+                  />
+                </div>
+              </div>
+            </div>
+
+            <div class="relative">
+              <canvas
+                id="handwriting-canvas"
+                class="w-full h-[400px] border-2 border-green-300 rounded-xl bg-white/90 cursor-crosshair"
+                style="touch-action: none"
+              >
+              </canvas>
+
+              <!-- Canvas Controls -->
+              <div class="absolute top-2 right-2 flex gap-2">
+                <button
+                  id="clear-canvas-btn"
+                  type="button"
+                  class="px-3 py-1 text-xs bg-red-100 text-red-700 rounded hover:bg-red-200 transition-all"
+                  title="Clear canvas"
+                >
+                  🗑️ Clear
+                </button>
+                <button
+                  id="recognize-btn"
+                  type="button"
+                  class="px-3 py-1 text-xs bg-blue-100 text-blue-700 rounded hover:bg-blue-200 transition-all"
+                  title="Convert handwriting to text"
+                >
+                  🔍 Recognize
+                </button>
+              </div>
+
+              <!-- Instructions -->
+              <div class="mt-2 text-sm text-gray-600 text-center">
+                Draw your code here with mouse or stylus. Use pen to write and
+                eraser to correct mistakes. Click "Recognize" to convert to
+                text.
+              </div>
+            </div>
+
+            <!-- Recognized Text Preview -->
+            <div class="mt-4">
+              <label class="block text-sm font-medium text-green-700 mb-2"
+                >Recognized Text:</label
+              >
+              <textarea
+                id="recognized-text"
+                class="w-full h-[80px] p-3 border-2 border-green-200 rounded-lg bg-green-50 resize-none"
+                placeholder="Your handwritten code will appear here after recognition..."
+                readonly
+              ></textarea>
+            </div>
+          </div>
+
+          <!-- Program Input (stdin) -->
+          <div class="mt-4">
+            <label
+              for="program-input"
+              class="block text-sm font-medium text-green-700 mb-2"
+            >
+              Program Input (stdin)
+            </label>
+            <textarea
+              id="program-input"
+              class="w-full h-[120px] p-3 border-2 border-green-200 rounded-lg bg-green-50 resize-none"
+              placeholder="Type the input your program expects, line by line..."
+            ></textarea>
+            <p class="text-xs text-gray-600 mt-1">
+              This text is passed to your program as standard input.
+            </p>
+          </div>
+
+          <!-- Pseudo-interactive toggle -->
+          <label class="inline-flex items-center gap-2 mt-3">
+            <input id="interactive-toggle" type="checkbox" class="h-4 w-4" />
+            <span class="text-sm text-green-700">Pseudo-interactive mode</span>
+          </label>
+
+          <!-- Simple modal for “enter next input” -->
+          <div
+            id="ask-modal"
+            class="fixed inset-0 hidden items-center justify-center bg-black/50 z-50"
+          >
+            <div
+              class="bg-white dark:bg-gray-800 rounded-xl p-5 w-full max-w-md shadow-xl"
+            >
+              <h3
+                id="ask-title"
+                class="text-lg font-semibold text-gray-800 dark:text-gray-100 mb-3"
+              >
+                Program is asking:
+              </h3>
+              <p
+                id="ask-message"
+                class="text-sm text-gray-600 dark:text-gray-300 mb-3"
+              ></p>
+              <input
+                id="ask-input"
+                class="w-full px-3 py-2 rounded border dark:bg-gray-700 dark:text-gray-100"
+                placeholder="Type your answer…"
+              />
+              <div class="mt-4 flex justify-end gap-3">
+                <button
+                  id="ask-cancel"
+                  class="px-4 py-2 rounded bg-gray-200 dark:bg-gray-700"
+                >
+                  Cancel
+                </button>
+                <button
+                  id="ask-ok"
+                  class="px-4 py-2 rounded bg-green-600 text-white"
+                >
+                  OK
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Action Buttons -->
+          <div class="mt-6 flex flex-wrap gap-3 justify-between">
+            <div class="flex gap-3">
+              <button
+                id="run-btn"
+                type="button"
+                class="btn-primary px-8 py-3 text-white rounded-xl font-semibold flex items-center gap-2"
+              >
+                <span>▶️ Run Code</span>
+              </button>
+              <button
+                id="clear-btn"
+                type="button"
+                class="btn-secondary px-6 py-3 text-green-700 border-2 border-green-500 rounded-xl font-semibold hover:bg-green-50"
+              >
+                🗑️ Clear
+              </button>
+            </div>
+
+            <div class="flex gap-3">
+              <button
+                id="save-btn"
+                type="button"
+                class="btn-secondary px-6 py-3 text-green-700 border-2 border-green-500 rounded-xl font-semibold hover:bg-green-50"
+              >
+                💾 Save
+              </button>
+              <button
+                id="share-btn"
+                type="button"
+                class="btn-secondary px-6 py-3 text-green-700 border-2 border-green-500 rounded-xl font-semibold hover:bg-green-50"
+              >
+                🔗 Share
+              </button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Output Section -->
+      <section class="flex-1">
+        <div class="code-area p-6 md:p-7 rounded-2xl shadow-xl h-full">
+          <div class="flex items-center justify-between mb-4">
+            <h2
+              class="text-2xl font-semibold text-green-800 flex items-center gap-2"
+            >
+              📤 Output
+            </h2>
+            <div class="flex gap-2">
+              <button
+                id="copy-output-btn"
+                type="button"
+                class="px-3 py-1 text-sm bg-green-100 text-green-700 rounded-lg hover:bg-green-200 transition-all"
+                title="Copy output"
+              >
+                📋 Copy
+              </button>
+              <button
+                id="clear-output-btn"
+                type="button"
+                class="px-3 py-1 text-sm bg-red-100 text-red-700 rounded-lg hover:bg-red-200 transition-all"
+                title="Clear output"
+              >
+                🗑️ Clear
+              </button>
+            </div>
+          </div>
+
+          <pre
+            id="output-area"
+            class="output-area p-4 rounded-xl overflow-auto h-[800px] whitespace-pre-wrap"
+            tabindex="0"
+            aria-live="polite"
+            aria-atomic="true"
+          >
+Ready to run your code... 🚀
+
+Tips:
+• Select a programming language above
+• Write your code with keyboard or handwriting style
+• Use pen tool to write, eraser to correct
+• Click "Run Code" to execute
+• Use "Save" to download your code
+• Use "Share" to copy a shareable link</pre
+          >
+        </div>
+      </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="mt-12 text-center text-green-600 fade-in">
+      <p class="text-sm">
+        Made with 💚 for developers who love to write code by hand
+      </p>
+      <p class="text-xs mt-1 opacity-75">
+        Supports 12+ programming languages • Real-time compilation •
+        Cloud-powered
+      </p>
+    </footer>
+
+    <!-- JavaScript -->
+    <!-- Tesseract.js (OCR in the browser) -->
+    <script src="https://unpkg.com/tesseract.js@v5.0.3/dist/tesseract.min.js"></script>
+    <script defer src="/js/client.js"></script>
+  </body>
+</html>
