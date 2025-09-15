@@ -1,3 +1,7 @@
+if (process.env.NODE_ENV !== "production") {
+  app.use((req, _res, next) => { console.log(req.method, req.url); next(); });
+}
+
 import express from "express";
 import path from "path";
 import { fileURLToPath } from "url";
@@ -35,6 +39,8 @@ app.set("views", path.join(__dirname, "../views"));
 app.get("/", (req, res) => {
   res.render("index", { title: "CodeBook - Handwriting Compiler" });
 });
+
+app.get("/healthz", (req, res) => res.send("OK"));
 
 /* ===== Judge0 setup ===== */
 const JUDGE0_URL =
