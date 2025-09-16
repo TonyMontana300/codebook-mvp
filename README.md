@@ -46,6 +46,7 @@ Deployment: Render + GitLab CI/CD
 
 This project is deployed on Render.
 Every push to the main branch in GitLab triggers an auto-deploy.
+URL https://codebook-5glo.onrender.com
 
 ## 📌 Roadmap
 
