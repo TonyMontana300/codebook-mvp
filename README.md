@@ -5,12 +5,15 @@ https://ce.judge0.com✍️ CodeBook – Handwriting Code Compiler
 CodeBook is a web-based platform that lets you write code by typing or handwriting, and run it directly in your browser using the Judge0 API.
 It supports multiple programming languages and provides real-time execution results.
 
-🌍 Live Demo: https://your-app.onrender.com
+🌍 Live Demo: https://codebook-5glo.onrender.com/
 
-This Early Access build focuses on a clean editor + output panel, stdin box, and language picker.
+⚠️ Early Access Notes
 
-> ✍️ Handwriting recognition is included (Tesseract.js).  
-> 🧪 Interactive “enter input during run” is **not** shipped in this EA build—use the **Program Input (stdin)** box before running.
+Currently stdin input is only supported via input box (no interactive prompt yet).
+
+Handwriting recognition works best with clear, block-style text.
+
+Performance may vary depending on Render’s free tier.
 
 ---
 
