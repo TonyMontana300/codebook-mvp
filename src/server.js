@@ -1,8 +1,9 @@
+import express from "express";
+const app = express();
 if (process.env.NODE_ENV !== "production") {
   app.use((req, _res, next) => { console.log(req.method, req.url); next(); });
 }
 
-import express from "express";
 import path from "path";
 import { fileURLToPath } from "url";
 import dotenv from "dotenv";
@@ -14,7 +15,6 @@ const runLimiter = rateLimit({ windowMs: 60_000, max: 30 }); // 30/min per IP
 
 dotenv.config();
 
-const app = express();
 const PORT = process.env.PORT || 3000;
 
 const __filename = fileURLToPath(import.meta.url);
