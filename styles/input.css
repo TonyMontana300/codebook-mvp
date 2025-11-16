@@ -423,6 +423,7 @@
   .dark textarea,
   .dark select,
   .dark input {
+    font-family: "Courier New", monospace;
     background: rgba(31, 41, 55, 0.8);
     color: #e5e7eb;
     border-color: #4b5563;
