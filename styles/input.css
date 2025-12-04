@@ -2,7 +2,7 @@
 @import "tailwindcss";
 
 /* ===== Google Fonts for CodeBook ===== */
-@import url('https://fonts.googleapis.com/css2?family=Kalam:wght@300;400;700&family=Caveat:wght@400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Kalam:wght@300;400;700&family=Caveat:wght@400;500;600;700&family=Fira+Code:wght@400;500;600&display=swap');
 
 /* =========================================
    Backup CSS (from your <style> block)
@@ -150,6 +150,16 @@
     backdrop-filter: blur(20px);
     border: 2px solid rgba(34, 197, 94, 0.3);
     transition: all 0.3s ease;
+  }
+
+  /* ===== Code Editor Font (Light Mode) ===== */
+  .code-area textarea {
+    font-family: "Fira Code", monospace;
+    font-size: 15px;
+    line-height: 1.7;
+    letter-spacing: 0.3px;
+    font-variant-ligatures: contextual;
+    font-feature-settings: "liga" 1;
   }
 
   .dark .code-area {
@@ -423,7 +433,7 @@
   .dark textarea,
   .dark select,
   .dark input {
-    font-family: "Courier New", monospace;
+    font-family: "Fira Code", monospace;
     background: rgba(31, 41, 55, 0.8);
     color: #e5e7eb;
     border-color: #4b5563;

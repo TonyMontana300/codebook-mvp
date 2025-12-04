@@ -41,6 +41,96 @@ let penColorInput;
 
 let modeHint;
 
+// ---------- boilerplates ----------
+const BOILERPLATES = {
+  JavaScript: `// JavaScript Boilerplate
+console.log("Hello from CodeBook");`,
+
+  TypeScript: `// TypeScript Boilerplate
+const message: string = "Hello from CodeBook";
+console.log(message);`,
+
+  Python: `# Python Boilerplate
+print("Hello from CodeBook")`,
+
+  Java: `// Java Boilerplate
+public class Main {
+    public static void main(String[] args) {
+        System.out.println("Hello from CodeBook");
+    }
+}`,
+
+  "C++": `// C++ Boilerplate
+#include <iostream>
+using namespace std;
+
+int main() {
+    cout << "Hello from CodeBook" << endl;
+    return 0;
+}`,
+
+  C: `// C Boilerplate
+#include <stdio.h>
+
+int main() {
+    printf("Hello from CodeBook");
+    return 0;
+}`,
+
+  "C#": `// C# Boilerplate
+using System;
+
+class Program {
+    static void Main() {
+        Console.WriteLine("Hello from CodeBook");
+    }
+}`,
+
+  Go: `// Go Boilerplate
+package main
+import "fmt"
+
+func main() {
+    fmt.Println("Hello from CodeBook")
+}`,
+
+  PHP: `<?php
+// PHP Boilerplate
+echo "Hello from CodeBook";
+?>`,
+
+  Ruby: `# Ruby Boilerplate
+puts "Hello from CodeBook"`,
+
+  Kotlin: `// Kotlin Boilerplate
+fun main() {
+    println("Hello from CodeBook")
+}`,
+
+  Swift: `// Swift Boilerplate
+import Foundation
+
+print("Hello from CodeBook")`,
+
+  HTML: `<!DOCTYPE html>
+<html>
+<head>
+  <title>CodeBook</title>
+</head>
+<body>
+
+  <h1>Hello from CodeBook</h1>
+
+</body>
+</html>`,
+
+  Rust: `// Rust Boilerplate
+  fn main() {
+      println!("Hello from CodeBook");
+  }`
+};
+
+
 // ----- pseudo-interactive stdin -----
 let interactiveEnabled = false;
 let interactiveInputs = []; // collected lines for this session
@@ -78,6 +168,30 @@ window.toggleTheme = function toggleTheme() {
   if (ctx) updateCanvasStyle();
 };
 
+function insertBoilerplate(lang) {
+  if (!textarea) return;
+
+  const currentCode = textarea.value.trim();
+  const allBoilerplates = Object.values(BOILERPLATES);
+
+  // 1. If empty → insert boilerplate
+  if (currentCode === "") {
+    textarea.value = BOILERPLATES[lang] || "";
+    updateStatus("ready", `${lang} boilerplate inserted`);
+    return;
+  }
+
+  // 2. If current code IS one of the boilerplates → replace it
+  if (allBoilerplates.includes(currentCode)) {
+    textarea.value = BOILERPLATES[lang] || "";
+    updateStatus("ready", `${lang} boilerplate replaced`);
+    return;
+  }
+
+  // 3. Otherwise → user typed something manually → do NOTHING
+  return;
+}
+
 // ---------- language ----------
 function selectLanguage(selectedEl) {
   if (!selectedEl) return;
@@ -95,6 +209,7 @@ function selectLanguage(selectedEl) {
   selectedEl.setAttribute("aria-checked", "true");
 
   updateStatus("ready", `Ready for ${lang}`);
+  insertBoilerplate(lang);
 }
 
 // ---------- tools / canvas ----------
@@ -636,5 +751,13 @@ document.addEventListener("DOMContentLoaded", () => {
   // Initial UI
   if (modeHint) modeHint.textContent = "(typing source)";
   updateStatus("ready", "Ready to code");
+
+  // Insert default (already selected) language boilerplate on load
+  const defaultLang = document.querySelector(".lang.selected");
+  if (defaultLang) {
+    selectLanguage(defaultLang);
+  }
+
+
   console.log("[client] ✅ listeners attached");
 });
