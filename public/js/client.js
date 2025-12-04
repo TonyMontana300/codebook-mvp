@@ -624,6 +624,38 @@ document.addEventListener("DOMContentLoaded", () => {
   // look up elements AFTER DOM is ready
   languageElements     = document.querySelectorAll(".language-logos .lang");
   textarea             = byId("code-editor");
+
+  // ---------- Auto Pair for Code Editor ----------
+  const pairs = {
+    "(": ")",
+    "{": "}",
+    "[": "]",
+    '"': '"',
+    "'": "'",
+    "`": "`"
+  };
+
+  if (textarea) {
+    textarea.addEventListener("keydown", (e) => {
+      const open = e.key;
+      const close = pairs[open];
+
+      if (!close) return;
+
+      const start = textarea.selectionStart;
+      const end = textarea.selectionEnd;
+
+      const before = textarea.value.slice(0, start);
+      const after = textarea.value.slice(end);
+
+      e.preventDefault();
+
+      textarea.value = before + open + close + after;
+      textarea.selectionStart = textarea.selectionEnd = start + 1;
+    });
+  }
+
+
   outputArea           = byId("output-area");
   runBtn               = byId("run-btn");
   clearBtn             = byId("clear-btn");
