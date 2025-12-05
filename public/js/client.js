@@ -188,7 +188,6 @@ function insertBoilerplate(lang) {
   updateStatus("ready", `${lang} boilerplate inserted`);
 }
 
-
 // ---------- language ----------
 function selectLanguage(selectedEl) {
   if (!selectedEl) return;
@@ -763,6 +762,68 @@ document.addEventListener("DOMContentLoaded", () => {
         return;
       }
 
+      // ---------- TAB INDENT / SHIFT+TAB UNINDENT ----------
+      if (e.key === "Tab") {
+        e.preventDefault();
+
+        const start = textarea.selectionStart;
+        const end = textarea.selectionEnd;
+        const value = textarea.value;
+
+        const TAB = "    "; // <--- change to "    " for 4 spaces
+
+        // A) If text is selected → indent/unindent multiple lines
+        if (start !== end) {
+          const before = value.slice(0, start);
+          const selected = value.slice(start, end);
+          const after = value.slice(end);
+
+          // Shift + Tab → unindent
+          if (e.shiftKey) {
+            const unindented = selected.replace(/^ {1,2}/gm, ""); // remove 2 spaces
+            textarea.value = before + unindented + after;
+
+            const removed = selected.length - unindented.length;
+            textarea.selectionStart = start;
+            textarea.selectionEnd = end - removed;
+
+            return;
+          }
+
+          // Normal Tab → indent selected lines
+          const indented = selected.replace(/^/gm, TAB);
+          textarea.value = before + indented + after;
+
+          textarea.selectionStart = start + TAB.length;
+          textarea.selectionEnd =
+            end + TAB.length * selected.split("\n").length;
+
+          return;
+        }
+
+        // B) No selection → insert TAB spaces
+        if (!e.shiftKey) {
+          const before = value.slice(0, start);
+          const after = value.slice(end);
+
+          textarea.value = before + TAB + after;
+          textarea.selectionStart = textarea.selectionEnd = start + TAB.length;
+          return;
+        }
+
+        // C) Shift+Tab with no selection → unindent current line
+        const lineStart = value.lastIndexOf("\n", start - 1) + 1;
+        if (value.startsWith("  ", lineStart)) {
+          const before = value.slice(0, lineStart);
+          const after = value.slice(lineStart + TAB.length);
+          textarea.value = before + after;
+
+          textarea.selectionStart = textarea.selectionEnd = start - TAB.length;
+        }
+
+        return;
+      }
+
       // ---------- Auto-Indent on Enter ----------
       if (key === "Enter") {
         // Special case: ENTER between { and }  -> auto-indent block
@@ -774,7 +835,11 @@ document.addEventListener("DOMContentLoaded", () => {
         let right = start;
         while (right < value.length && value[right] === " ") right++;
 
-        if (value[left] === "{" || value[left] === "[" && value[right] === "}" || value[right] === "]") {
+        if (
+          value[left] === "{" ||
+          (value[left] === "[" && value[right] === "}") ||
+          value[right] === "]"
+        ) {
           e.preventDefault();
 
           const before = value.slice(0, start);
@@ -892,6 +957,7 @@ document.addEventListener("DOMContentLoaded", () => {
           textarea.selectionStart = textarea.selectionEnd = pos;
           textarea.dispatchEvent(new Event("input", { bubbles: true }));
         }, 0);
+
         return;
       }
 
@@ -1025,8 +1091,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
   if (textarea) {
     textarea.addEventListener("input", () => {
-      languageCodeStore[currentLanguage] = textarea.value;  // ⭐ store code per language
-      updateStatus("ready", "Code modified")
+      languageCodeStore[currentLanguage] = textarea.value; // ⭐ store code per language
+      updateStatus("ready", "Code modified");
     });
   }
 
