@@ -836,9 +836,9 @@ document.addEventListener("DOMContentLoaded", () => {
         while (right < value.length && value[right] === " ") right++;
 
         if (
-          value[left] === "{" ||
+          value[left] === "{" || value[left] === "(" ||
           (value[left] === "[" && value[right] === "}") ||
-          value[right] === "]"
+          value[right] === "]" || value[right] === ")"
         ) {
           e.preventDefault();
 
