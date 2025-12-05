@@ -1275,3 +1275,24 @@
     }
   }
 }
+
+/* ===== CodeBook Editor Font (Light + Dark) ===== */
+#code-editor {
+  font-family: "Fira Code", "JetBrains Mono", monospace !important;
+  font-size: 15px;
+  line-height: 1.6;
+  letter-spacing: 0.3px;
+  tab-size: 2;
+  caret-color: #2563eb;
+}
+
+.dark #code-editor {
+  background-color: #0f172a !important;
+  color: #e2e8f0 !important;
+}
+
+:not(.dark) #code-editor {
+  background-color: #ffffff !important;
+  color: #0f172a !important;
+}
+
